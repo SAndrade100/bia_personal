@@ -3,6 +3,10 @@ import user from './fixtures/user.json';
 import trainings from './fixtures/trainings.json';
 import schedule from './fixtures/schedule.json';
 import progress from './fixtures/progress.json';
+import nutrition from './fixtures/nutrition.json';
+import assessments from './fixtures/assessments.json';
+import chat from './fixtures/chat.json';
+import anamnesis from './fixtures/anamnesis.json';
 
 export const handlers = [
   rest.get('/api/user', (req, res, ctx) => {
@@ -34,5 +38,24 @@ export const handlers = [
 
   rest.get('/api/progress', (_req, res, ctx) => {
     return res(ctx.status(200), ctx.json(progress));
+  }),
+
+  rest.get('/api/nutrition', (req, res, ctx) => {
+    const section = req.url.searchParams.get('section');
+    if (section === 'plan')  return res(ctx.status(200), ctx.json(nutrition.plan));
+    if (section === 'diary') return res(ctx.status(200), ctx.json(nutrition.diary));
+    return res(ctx.status(200), ctx.json(nutrition));
+  }),
+
+  rest.get('/api/assessments', (_req, res, ctx) => {
+    return res(ctx.status(200), ctx.json(assessments));
+  }),
+
+  rest.get('/api/chat', (_req, res, ctx) => {
+    return res(ctx.status(200), ctx.json(chat));
+  }),
+
+  rest.get('/api/anamnesis', (_req, res, ctx) => {
+    return res(ctx.status(200), ctx.json(anamnesis));
   }),
 ];
